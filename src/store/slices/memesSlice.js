@@ -1,0 +1,184 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+// Fetch trending memes (IDs 0-10)
+export const fetchTrendingMemes = createAsyncThunk(
+  'memes/fetchTrending',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://api.imgflip.com/get_memes');
+      return response.data.data.memes.slice(0, 10);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Fetch new memes (IDs 10-20)
+export const fetchNewMemes = createAsyncThunk(
+  'memes/fetchNew',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://api.imgflip.com/get_memes');
+      return response.data.data.memes.slice(10, 20);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Fetch memes by category
+export const fetchMemesByCategory = createAsyncThunk(
+  'memes/fetchByCategory',
+  async (category, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://api.imgflip.com/get_memes');
+      const allMemes = response.data.data.memes;
+      switch (category) {
+        case 'trending':
+          return allMemes.slice(0, 10);
+        case 'new':
+          return allMemes.slice(10, 20);
+        case 'classic':
+          return allMemes.slice(20, 30);
+        case 'random':
+          return allMemes.sort(() => 0.5 - Math.random()).slice(0, 10);
+        default:
+          return allMemes.slice(0, 10);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Search memes
+export const searchMemes = createAsyncThunk(
+  'memes/search',
+  async (query, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://api.imgflip.com/get_memes');
+      const allMemes = response.data.data.memes;
+      return allMemes.filter((meme) =>
+        meme.name.toLowerCase().includes(query.toLowerCase())
+      );
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Load localStorage data
+const loadLikes = () => JSON.parse(localStorage.getItem('meme_likes')) || {};
+const loadComments = () => JSON.parse(localStorage.getItem('meme_comments')) || {};
+const loadUploadedMemes = () => JSON.parse(localStorage.getItem('uploaded_memes')) || [];
+
+const initialState = {
+  trending: [],
+  newMemes: [],
+  explore: [],
+  searchResults: [],
+  uploadedMemes: loadUploadedMemes(),
+  likes: loadLikes(),
+  comments: loadComments(),
+  status: 'idle',
+  error: null,
+  currentCategory: 'trending',
+};
+
+const memesSlice = createSlice({
+  name: 'memes',
+  initialState,
+  reducers: {
+    likeMeme: (state, action) => {
+      const { memeId } = action.payload;
+      state.likes[memeId] = (state.likes[memeId] || 0) + 1;
+      localStorage.setItem('meme_likes', JSON.stringify(state.likes));
+    },
+    unlikeMeme: (state, action) => {
+      const { memeId } = action.payload;
+      if (state.likes[memeId] && state.likes[memeId] > 0) {
+        state.likes[memeId] -= 1;
+        localStorage.setItem('meme_likes', JSON.stringify(state.likes));
+      }
+    },
+    addComment: (state, action) => {
+      const { memeId, comment } = action.payload;
+      if (!state.comments[memeId]) state.comments[memeId] = [];
+      state.comments[memeId].push(comment);
+      localStorage.setItem('meme_comments', JSON.stringify(state.comments));
+    },
+    addUploadedMeme: (state, action) => {
+      state.uploadedMemes.push(action.payload);
+      localStorage.setItem('uploaded_memes', JSON.stringify(state.uploadedMemes));
+    },
+    setCurrentCategory: (state, action) => {
+      state.currentCategory = action.payload;
+    },
+    resetSearchResults: (state) => {
+      state.searchResults = [];
+    },
+    resetStatus: (state) => {
+      state.status = 'idle';
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTrendingMemes.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchTrendingMemes.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.trending = action.payload;
+      })
+      .addCase(fetchTrendingMemes.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(fetchNewMemes.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchNewMemes.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.newMemes = action.payload;
+      })
+      .addCase(fetchNewMemes.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(fetchMemesByCategory.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMemesByCategory.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.explore = action.payload;
+      })
+      .addCase(fetchMemesByCategory.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(searchMemes.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(searchMemes.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.searchResults = action.payload;
+      })
+      .addCase(searchMemes.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
+  },
+});
+
+export const {
+  likeMeme,
+  unlikeMeme,
+  addComment,
+  addUploadedMeme,
+  setCurrentCategory,
+  resetSearchResults,
+  resetStatus,
+} = memesSlice.actions;
+
+export default memesSlice.reducer;
