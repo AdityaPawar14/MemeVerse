@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Fetch trending memes (IDs 0-10)
+
 export const fetchTrendingMemes = createAsyncThunk(
   'memes/fetchTrending',
   async (_, { rejectWithValue }) => {
@@ -14,7 +14,7 @@ export const fetchTrendingMemes = createAsyncThunk(
   }
 );
 
-// Fetch new memes (IDs 10-20)
+
 export const fetchNewMemes = createAsyncThunk(
   'memes/fetchNew',
   async (_, { rejectWithValue }) => {
@@ -27,7 +27,7 @@ export const fetchNewMemes = createAsyncThunk(
   }
 );
 
-// Fetch memes by category
+
 export const fetchMemesByCategory = createAsyncThunk(
   'memes/fetchByCategory',
   async (category, { rejectWithValue }) => {
@@ -52,7 +52,7 @@ export const fetchMemesByCategory = createAsyncThunk(
   }
 );
 
-// Search memes
+
 export const searchMemes = createAsyncThunk(
   'memes/search',
   async (query, { rejectWithValue }) => {
@@ -68,7 +68,7 @@ export const searchMemes = createAsyncThunk(
   }
 );
 
-// Load localStorage data
+
 const loadLikes = () => JSON.parse(localStorage.getItem('meme_likes')) || {};
 const loadComments = () => JSON.parse(localStorage.getItem('meme_comments')) || {};
 const loadUploadedMemes = () => JSON.parse(localStorage.getItem('uploaded_memes')) || [];
