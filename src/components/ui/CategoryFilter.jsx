@@ -5,7 +5,7 @@ import { setCurrentCategory, fetchMemesByCategory } from '../../store/slices/mem
 
 const CategoryFilter = () => {
   const dispatch = useDispatch();
-  const currentCategory = useSelector((state) => state.memes.currentCategory || 'trending'); // Fallback to 'trending' if undefined
+  const currentCategory = useSelector((state) => state.memes.currentCategory || 'trending'); 
 
   const categories = [
     { id: 'trending', name: 'Trending' },
@@ -24,17 +24,17 @@ const CategoryFilter = () => {
       {categories.map((category) => (
         <motion.button
           key={category.id}
-          type="button" // Prevent unintended form submissions
+          type="button" 
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }} // Smoother animation
+          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           className={`px-4 py-2 rounded-full text-sm font-medium ${
             currentCategory === category.id
               ? 'bg-indigo-600 text-white'
               : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
           }`}
           onClick={() => handleCategoryChange(category.id)}
-          aria-label={`Filter by ${category.name}`} // Accessibility improvement
+          aria-label={`Filter by ${category.name}`} 
         >
           {category.name}
         </motion.button>
