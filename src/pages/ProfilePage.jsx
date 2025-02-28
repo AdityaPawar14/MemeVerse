@@ -20,7 +20,7 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('uploads');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Filter liked memes from all memes
+  
   const likedMemes = [...allMemes, ...uploadedMemes].filter((meme) =>
     likedMemeIds.includes(meme.id)
   );
@@ -219,7 +219,7 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            {/* Stats Section */}
+           
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
               <motion.div
                 className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center"
@@ -259,7 +259,7 @@ const ProfilePage = () => {
               </motion.div>
             </div>
 
-            {/* Tabs Section */}
+         
             <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
               <div className="flex space-x-8">
                 <motion.button
@@ -291,7 +291,7 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Content Section */}
+      
         {activeTab === 'uploads' && (
           <>
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
