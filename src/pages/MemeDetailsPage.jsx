@@ -1,4 +1,3 @@
-// pages/MemeDetailsPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,13 +25,13 @@ const MemeDetailsPage = () => {
     const fetchMeme = async () => {
       setLoading(true);
       try {
-        // First check if it's a user-uploaded meme
+        
         const userMeme = uploadedMemes.find((m) => m.id === id);
 
         if (userMeme) {
           setMeme(userMeme);
         } else {
-          // Otherwise fetch from API
+        
           const response = await fetch('https://api.imgflip.com/get_memes');
           if (!response.ok) {
             throw new Error('Failed to fetch memes');
