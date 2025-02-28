@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowUpDown } from 'lucide-react';
 
 const SortOptions = ({ onSort }) => {
-  const [isOpen, setIsOpen] = useState(false); // State to manage dropdown visibility
+  const [isOpen, setIsOpen] = useState(false); 
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -10,7 +10,7 @@ const SortOptions = ({ onSort }) => {
 
   const handleSort = (sortType) => {
     onSort(sortType);
-    setIsOpen(false); // Close dropdown after selecting an option
+    setIsOpen(false); 
   };
 
   const handleKeyDown = (e, sortType) => {
