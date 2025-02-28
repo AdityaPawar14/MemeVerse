@@ -6,19 +6,19 @@ import { searchMemes } from '../../store/slices/memesSlice';
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
-  const timeoutId = useRef(null); // Use useRef to persist timeoutId across renders
+  const timeoutId = useRef(null); 
 
   // Debounce search with useCallback
   const debouncedSearch = useCallback(
     (searchTerm) => {
       if (timeoutId.current) {
-        clearTimeout(timeoutId.current); // Clear previous timeout
+        clearTimeout(timeoutId.current); 
       }
       timeoutId.current = setTimeout(() => {
         if (searchTerm.trim()) {
           dispatch(searchMemes(searchTerm));
         }
-      }, 500); // 500ms debounce delay
+      }, 500);
     },
     [dispatch]
   );
