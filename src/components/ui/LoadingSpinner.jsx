@@ -7,7 +7,7 @@ const LoadingSpinner = () => {
       <motion.div
         className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full"
         aria-label="Loading"
-        initial={{ rotate: 0 }} // Ensure animation starts from 0 degrees
+        initial={{ rotate: 0 }} 
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
       />
