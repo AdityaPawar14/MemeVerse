@@ -35,7 +35,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation Links */}
+      
           <div className="hidden md:flex items-center space-x-4">
             {navLinks.map((link) => (
               <Link
@@ -52,7 +52,7 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            {/* Theme Toggle Button */}
+          
             <button
               type="button"
               onClick={toggleTheme}
@@ -63,7 +63,7 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Section */}
+       
           <div className="flex md:hidden items-center">
             {/* Placeholder for Mobile Menu Button */}
             <button
@@ -71,10 +71,10 @@ const Navbar = () => {
               className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label="Open mobile menu"
             >
-              {/* Add a hamburger icon here */}
+             
               <span>☰</span>
             </button>
-            {/* Theme Toggle Button for Mobile */}
+         
             <button
               type="button"
               onClick={toggleTheme}
