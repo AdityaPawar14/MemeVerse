@@ -22,13 +22,13 @@ const ExplorePage = () => {
 
   const memesToDisplay = searchResults.length > 0 ? searchResults : explore;
 
-  // Fetch memes on component mount
+  
   useEffect(() => {
-    dispatch(resetStatus()); // Reset status before fetching new memes
+    dispatch(resetStatus()); 
     dispatch(fetchMemesByCategory(currentCategory));
   }, [dispatch, currentCategory]);
 
-  // Sort memes based on the selected option
+ 
   useEffect(() => {
     let sorted = [...memesToDisplay];
 
@@ -43,11 +43,11 @@ const ExplorePage = () => {
     setSortedMemes(sorted);
   }, [memesToDisplay, sortBy]);
 
-  // Load more memes when the bottom of the page is in view
+  
   useEffect(() => {
-    console.log('Is bottom in view?', inView); // Debugging log
+    console.log('Is bottom in view?', inView); 
     if (inView && status !== 'loading' && page * memesPerPage < memesToDisplay.length) {
-      console.log('Loading more memes...'); // Debugging log
+      console.log('Loading more memes...'); 
       setPage((prevPage) => prevPage + 1);
     }
   }, [inView, status, memesToDisplay.length, page]);
