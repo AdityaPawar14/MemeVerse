@@ -12,12 +12,12 @@ const HomePage = () => {
   const { trending, newMemes, status, error } = useSelector((state) => state.memes);
 
   useEffect(() => {
-    // Dispatch both actions every time the component mounts
+    
     dispatch(fetchTrendingMemes());
     dispatch(fetchNewMemes());
   }, [dispatch]);
 
-  // Variants for container animations
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -28,7 +28,7 @@ const HomePage = () => {
     },
   };
 
-  // Variants for item animations
+ 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -38,7 +38,7 @@ const HomePage = () => {
     },
   };
 
-  // Variants for page transitions
+ 
   const pageVariants = {
     initial: { opacity: 0, x: -100 },
     in: { opacity: 1, x: 0 },
@@ -177,7 +177,7 @@ const HomePage = () => {
         )}
       </div>
 
-      {/* Call-to-Action Section */}
+      
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
