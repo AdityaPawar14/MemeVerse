@@ -17,7 +17,7 @@ const UploadPage = () => {
   const [caption, setCaption] = useState('');
   const [isGeneratingCaption, setIsGeneratingCaption] = useState(false);
 
-  // Predefined list of funny captions
+  
   const funnyCaptions = [
     "When you realize it's Monday tomorrow...",
     "Me trying to adult like...",
@@ -35,7 +35,7 @@ const UploadPage = () => {
     accept: {
       'image/*': ['.jpeg', '.jpg', '.png', '.gif']
     },
-    maxSize: 5 * 1024 * 1024, // 5MB
+    maxSize: 5 * 1024 * 1024, 
     onDrop: acceptedFiles => handleFile(acceptedFiles[0]),
     multiple: false
   });
@@ -65,10 +65,9 @@ const UploadPage = () => {
     setError('');
 
     try {
-      // Simulate AI caption generation with a delay
+      
       await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Randomly select a funny caption from the list
+      
       const randomCaption = funnyCaptions[Math.floor(Math.random() * funnyCaptions.length)];
       setCaption(randomCaption);
     } catch (err) {
@@ -87,7 +86,7 @@ const UploadPage = () => {
 
     setIsUploading(true);
     try {
-      // Simulate upload delay
+      
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       const newMeme = {
@@ -149,7 +148,7 @@ const UploadPage = () => {
         animate="visible"
         className="grid lg:grid-cols-2 gap-8"
       >
-        {/* Left Side - Upload Section */}
+  
         <motion.div variants={itemVariants} className="space-y-6">
           <div
             {...getRootProps()}
@@ -210,7 +209,7 @@ const UploadPage = () => {
           )}
         </motion.div>
 
-        {/* Right Side - Form Section */}
+       
         <motion.div variants={itemVariants} className="space-y-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -296,7 +295,7 @@ const UploadPage = () => {
               />
             </div>
 
-            {/* Preview Section */}
+           
             {preview && (
               <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Preview</h3>
@@ -346,7 +345,7 @@ const UploadPage = () => {
             </div>
           </form>
 
-          {/* Guidelines Section */}
+        
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -364,7 +363,7 @@ const UploadPage = () => {
             </ul>
           </motion.div>
 
-          {/* Supported Languages */}
+         
           <div className="flex items-center justify-center space-x-4 text-gray-500 dark:text-gray-400">
             <Globe className="h-5 w-5" />
             <span>Supported Languages: English, Español, Français, 中文, العربية</span>
