@@ -72,7 +72,7 @@ const LeaderboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Header Section */}
+        
         <div className="text-center mb-12">
           <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
             Leaderboard
@@ -82,7 +82,7 @@ const LeaderboardPage = () => {
           </p>
         </div>
 
-        {/* Error Handling */}
+        
         {status === 'failed' && (
           <div className="text-center text-red-500">
             <p>Failed to load memes: {error}</p>
@@ -95,17 +95,17 @@ const LeaderboardPage = () => {
           </div>
         )}
 
-        {/* Loading State */}
+       
         {status === 'loading' && (
           <div className="text-center text-gray-500">
             <p>Loading...</p>
           </div>
         )}
 
-        {/* Leaderboard UI */}
+       
         {status === 'succeeded' && (
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
-            {/* Tab Navigation */}
+            
             <div className="border-b border-gray-200 dark:border-gray-700">
               <div className="flex justify-center">
                 {['memes', 'users'].map((tab) => (
@@ -135,7 +135,7 @@ const LeaderboardPage = () => {
               </div>
             </div>
 
-            {/* Content Section */}
+           
             <div className="p-8">
               {activeTab === 'memes' && (
                 <motion.div
