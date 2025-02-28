@@ -1,4 +1,4 @@
-// App.jsx
+
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -9,13 +9,13 @@ import Footer from './components/layout/Footer';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 
-// Lazy-loaded components
+
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ExplorePage = lazy(() => import('./pages/ExplorePage'));
 const UploadPage = lazy(() => import('./pages/UploadPage'));
 const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
-const MemeDetailsPage = lazy(() => import('./pages/MemeDetailsPage')); // Import the MemeDetailsPage
+const MemeDetailsPage = lazy(() => import('./pages/MemeDetailsPage')); 
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
                     <Route path="/upload" element={<UploadPage />} />
                     <Route path="/leaderboard" element={<LeaderboardPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/meme/:id" element={<MemeDetailsPage />} /> {/* Add this route */}
+                    <Route path="/meme/:id" element={<MemeDetailsPage />} /> 
                   </Routes>
                 </Suspense>
               </ErrorBoundary>
