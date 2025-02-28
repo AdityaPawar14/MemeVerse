@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Default user profile
+
 const DEFAULT_PROFILE = {
   name: 'Meme Lover',
   bio: 'Just someone who loves memes!',
@@ -8,7 +8,7 @@ const DEFAULT_PROFILE = {
   likedMemes: [],
 };
 
-// Load user profile from localStorage
+
 const loadUserProfile = () => {
   try {
     const profile = localStorage.getItem('user_profile');
