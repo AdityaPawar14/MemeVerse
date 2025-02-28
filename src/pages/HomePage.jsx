@@ -60,7 +60,7 @@ const HomePage = () => {
       transition={pageTransition}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
-      {/* Hero Section */}
+     
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ const HomePage = () => {
         </div>
       </motion.div>
 
-      {/* Trending Memes Section */}
+     
       <div className="mb-16">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Trending Memes</h2>
@@ -136,7 +136,7 @@ const HomePage = () => {
         )}
       </div>
 
-      {/* New Memes Section */}
+      {
       <div className="mb-16">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">New Memes</h2>
@@ -222,7 +222,7 @@ const HomePage = () => {
         </div>
       </motion.div>
 
-      {/* Social Proof Section */}
+      
       <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900 dark:to-purple-900 rounded-lg p-6 mt-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           <motion.div whileHover={{ scale: 1.05 }} className="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
