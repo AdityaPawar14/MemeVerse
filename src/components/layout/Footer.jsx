@@ -3,7 +3,7 @@ import { Heart, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
-  // Animation variants for social icons
+  
   const iconVariants = {
     hover: { scale: 1.1, rotate: 10 },
     tap: { scale: 0.9 },
