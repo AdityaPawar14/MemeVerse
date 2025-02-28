@@ -38,7 +38,7 @@ MemeVerse is a multi-page interactive web application designed for meme lovers t
    ```
 
 ## 🌐 Deployment
-https://meme-verse-app.vercel.app/
+https://meme-verse-app-git-main-adityas-projects-a6252269.vercel.app/
 
 ## 🤝 Contribution
 Feel free to contribute to MemeVerse! Fork the repo, create a branch, and submit a PR.
