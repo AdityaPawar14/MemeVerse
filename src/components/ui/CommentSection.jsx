@@ -31,7 +31,7 @@ const CommentSection = ({ memeId }) => {
         Comments ({comments.length})
       </h3>
 
-      {/* Comment Form */}
+   
       <form onSubmit={handleSubmitComment} className="mb-6">
         <div className="flex items-start space-x-4">
           {userProfile && (
