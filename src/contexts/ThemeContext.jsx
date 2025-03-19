@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ThemeContext = createContext();
 
@@ -15,9 +16,15 @@ export const ThemeProvider = ({ children }) => {
     }
   });
 
+  const [themeTransition, setThemeTransition] = useState(false);
+
   useEffect(() => {
     try {
       const htmlElement = document.documentElement;
+
+      // Start transition
+      setThemeTransition(true);
+      
       if (darkMode) {
         htmlElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
@@ -25,6 +32,13 @@ export const ThemeProvider = ({ children }) => {
         htmlElement.classList.remove('dark');
         localStorage.setItem('theme', 'light');
       }
+      
+      // End transition after animation completes
+      const timer = setTimeout(() => {
+        setThemeTransition(false);
+      }, 500);
+      
+      return () => clearTimeout(timer);
     } catch (error) {
       console.error('Error updating theme:', error);
     }
@@ -36,7 +50,20 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
+      <AnimatePresence>
+        {themeTransition && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black pointer-events-none z-50"
+          />
+        )}
+      </AnimatePresence>
       {children}
     </ThemeContext.Provider>
   );
 };
+
+export default ThemeContext;
