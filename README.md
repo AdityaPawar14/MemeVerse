@@ -22,11 +22,11 @@ MemeVerse is a multi-page interactive web application designed for meme lovers t
 ## 📦 Installation & Setup
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/AdityaPawar14/MemeVerse-App.git
+   git clone https://github.com/AdityaPawar14/MemeVerse.git
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd MemeVerse-App
+   cd MemeVerse
    ```
 3. **Install dependencies**
    ```sh
@@ -38,7 +38,7 @@ MemeVerse is a multi-page interactive web application designed for meme lovers t
    ```
 
 ## 🌐 Deployment
-https://meme-verse-app-git-main-adityas-projects-a6252269.vercel.app/
+https://meme-verse-app.vercel.app/
 
 ## 🤝 Contribution
 Feel free to contribute to MemeVerse! Fork the repo, create a branch, and submit a PR.
