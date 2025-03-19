@@ -1,3 +1,4 @@
+// CommentSection.jsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
@@ -31,7 +32,6 @@ const CommentSection = ({ memeId }) => {
         Comments ({comments.length})
       </h3>
 
-    
       <form onSubmit={handleSubmitComment} className="mb-6">
         <div className="flex items-start space-x-4">
           {userProfile && (
@@ -68,7 +68,7 @@ const CommentSection = ({ memeId }) => {
         </div>
       </form>
 
-      {/* Comments List */}
+      
       <div className="space-y-6">
         {comments.length > 0 ? (
           comments.map((comment) => (
