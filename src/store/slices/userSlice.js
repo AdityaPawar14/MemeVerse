@@ -1,14 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
+// Default user profile
 const DEFAULT_PROFILE = {
-  name: 'Meme Lover',
+  name: 'User',
+  username: 'user@memer',
   bio: 'Just someone who loves memes!',
   profilePic: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
   likedMemes: [],
+  joinDate: '2023-01-15T12:00:00Z',
+  followers: 42,
+  following: 69
 };
 
-
+// Load user profile from localStorage
 const loadUserProfile = () => {
   try {
     const profile = localStorage.getItem('user_profile');
@@ -21,6 +25,7 @@ const loadUserProfile = () => {
 
 const initialState = {
   profile: loadUserProfile(),
+  isAuthenticated: true, // For demo purposes, user is always authenticated
 };
 
 const userSlice = createSlice({
@@ -55,9 +60,21 @@ const userSlice = createSlice({
         console.error('Error saving user profile to localStorage:', error);
       }
     },
+    login: (state) => {
+      state.isAuthenticated = true;
+    },
+    logout: (state) => {
+      state.isAuthenticated = false;
+    },
   },
 });
 
-export const { updateProfile, addLikedMeme, removeLikedMeme } = userSlice.actions;
+export const {
+  updateProfile,
+  addLikedMeme,
+  removeLikedMeme,
+  login,
+  logout,
+} = userSlice.actions;
 
 export default userSlice.reducer;
