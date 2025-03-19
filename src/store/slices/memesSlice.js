@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-
+// Fetch trending memes (IDs 0-10)
 export const fetchTrendingMemes = createAsyncThunk(
   'memes/fetchTrending',
   async (_, { rejectWithValue }) => {
@@ -14,7 +14,7 @@ export const fetchTrendingMemes = createAsyncThunk(
   }
 );
 
-
+// Fetch new memes (IDs 10-20)
 export const fetchNewMemes = createAsyncThunk(
   'memes/fetchNew',
   async (_, { rejectWithValue }) => {
@@ -27,7 +27,7 @@ export const fetchNewMemes = createAsyncThunk(
   }
 );
 
-
+// Fetch memes by category
 export const fetchMemesByCategory = createAsyncThunk(
   'memes/fetchByCategory',
   async (category, { rejectWithValue }) => {
@@ -52,7 +52,7 @@ export const fetchMemesByCategory = createAsyncThunk(
   }
 );
 
-
+// Search memes
 export const searchMemes = createAsyncThunk(
   'memes/search',
   async (query, { rejectWithValue }) => {
@@ -68,10 +68,33 @@ export const searchMemes = createAsyncThunk(
   }
 );
 
+// Load localStorage data
+const loadLikes = () => {
+  try {
+    return JSON.parse(localStorage.getItem('meme_likes')) || {};
+  } catch (error) {
+    console.error('Error loading likes from localStorage:', error);
+    return {};
+  }
+};
 
-const loadLikes = () => JSON.parse(localStorage.getItem('meme_likes')) || {};
-const loadComments = () => JSON.parse(localStorage.getItem('meme_comments')) || {};
-const loadUploadedMemes = () => JSON.parse(localStorage.getItem('uploaded_memes')) || [];
+const loadComments = () => {
+  try {
+    return JSON.parse(localStorage.getItem('meme_comments')) || {};
+  } catch (error) {
+    console.error('Error loading comments from localStorage:', error);
+    return {};
+  }
+};
+
+const loadUploadedMemes = () => {
+  try {
+    return JSON.parse(localStorage.getItem('uploaded_memes')) || [];
+  } catch (error) {
+    console.error('Error loading uploaded memes from localStorage:', error);
+    return [];
+  }
+};
 
 const initialState = {
   trending: [],
@@ -93,24 +116,40 @@ const memesSlice = createSlice({
     likeMeme: (state, action) => {
       const { memeId } = action.payload;
       state.likes[memeId] = (state.likes[memeId] || 0) + 1;
-      localStorage.setItem('meme_likes', JSON.stringify(state.likes));
+      try {
+        localStorage.setItem('meme_likes', JSON.stringify(state.likes));
+      } catch (error) {
+        console.error('Error saving likes to localStorage:', error);
+      }
     },
     unlikeMeme: (state, action) => {
       const { memeId } = action.payload;
       if (state.likes[memeId] && state.likes[memeId] > 0) {
         state.likes[memeId] -= 1;
-        localStorage.setItem('meme_likes', JSON.stringify(state.likes));
+        try {
+          localStorage.setItem('meme_likes', JSON.stringify(state.likes));
+        } catch (error) {
+          console.error('Error saving likes to localStorage:', error);
+        }
       }
     },
     addComment: (state, action) => {
       const { memeId, comment } = action.payload;
       if (!state.comments[memeId]) state.comments[memeId] = [];
       state.comments[memeId].push(comment);
-      localStorage.setItem('meme_comments', JSON.stringify(state.comments));
+      try {
+        localStorage.setItem('meme_comments', JSON.stringify(state.comments));
+      } catch (error) {
+        console.error('Error saving comments to localStorage:', error);
+      }
     },
     addUploadedMeme: (state, action) => {
       state.uploadedMemes.push(action.payload);
-      localStorage.setItem('uploaded_memes', JSON.stringify(state.uploadedMemes));
+      try {
+        localStorage.setItem('uploaded_memes', JSON.stringify(state.uploadedMemes));
+      } catch (error) {
+        console.error('Error saving uploaded memes to localStorage:', error);
+      }
     },
     setCurrentCategory: (state, action) => {
       state.currentCategory = action.payload;
@@ -119,11 +158,13 @@ const memesSlice = createSlice({
       state.searchResults = [];
     },
     resetStatus: (state) => {
-      state.status = 'idle';
+      state.status = 'idle'; // Reset the status to 'idle'
+      state.error = null;   // Clear any errors
     },
   },
   extraReducers: (builder) => {
     builder
+      // Fetch trending memes
       .addCase(fetchTrendingMemes.pending, (state) => {
         state.status = 'loading';
       })
@@ -135,6 +176,8 @@ const memesSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      // Fetch new memes
       .addCase(fetchNewMemes.pending, (state) => {
         state.status = 'loading';
       })
@@ -146,6 +189,8 @@ const memesSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      // Fetch memes by category
       .addCase(fetchMemesByCategory.pending, (state) => {
         state.status = 'loading';
       })
@@ -157,6 +202,8 @@ const memesSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      // Search memes
       .addCase(searchMemes.pending, (state) => {
         state.status = 'loading';
       })
